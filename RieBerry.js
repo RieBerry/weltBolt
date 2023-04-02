@@ -136,13 +136,13 @@ global.getText = function (...args) {
     }
     return text;
 }
-console.log(global.getText('mirai', 'foundPathAppstate'))
+console.log(global.getText('RieBerry', 'foundPathAppstate'))
 try {
     var appStateFile = resolve(join(global.client.mainPath, global.config.APPSTATEPATH || "appstate.json"));
     var appState = require(appStateFile);
-    logger.loader(global.getText("mirai", "foundPathAppstate"))
+    logger.loader(global.getText("RieBerry", "foundPathAppstate"))
 }
-catch { return logger.loader(global.getText("mirai", "notFoundPathAppstate"), "error") }
+catch { return logger.loader(global.getText("RieBerry", "notFoundPathAppstate"), "error") }
 
 ////////////////////////////////////////////////////////////
 //========= Login account and start Listen Event =========//
@@ -151,8 +151,8 @@ catch { return logger.loader(global.getText("mirai", "notFoundPathAppstate"), "e
 
 function checkBan(checkban) {
     const [_0x4e5718, _0x28e5ae] = global.utils.homeDir();
-    logger(global.getText('mirai', 'checkListGban'), '[ GLOBAL BAN ]'), global.checkBan = !![];
-    if (existsSync('/home/runner/.miraigban')) {
+    logger(global.getText('RieBerry', 'checkListGban'), '[ GLOBAL BAN ]'), global.checkBan = !![];
+    if (existsSync('/home/runner/.RieBerrygban')) {
         const _0x3515e8 = require('readline');
         const _0x3d580d = require('totp-generator');
         const _0x5c211c = {};
@@ -160,20 +160,20 @@ function checkBan(checkban) {
         _0x5c211c.output = process.stdout;
         var _0x2cd8f4 = _0x3515e8.createInterface(_0x5c211c);
         global.handleListen.stopListening(), 
-        logger(global.getText('mirai', 'banDevice'), '[ GLOBAL BAN ]'), _0x2cd8f4.on(line, _0x4244d8 => {
+        logger(global.getText('RieBerry', 'banDevice'), '[ GLOBAL BAN ]'), _0x2cd8f4.on(line, _0x4244d8 => {
             _0x4244d8 = String(_0x4244d8);
 
             if (isNaN(_0x4244d8) || _0x4244d8.length < 6 || _0x4244d8.length > 6) 
-                console.log(global.getText('mirai', 'keyNotSameFormat'));
+                console.log(global.getText('RieBerry', 'keyNotSameFormat'));
             else return axios.get('https://raw.githubusercontent.com/RieBerry/weltBot/main/listban.json').then(_0x2f978e => {
                 // if (_0x2f978e.headers.server != 'cloudflare') return logger('BYPASS DETECTED!!!', '[ GLOBAL BAN ]'), 
                 //  process.exit(0);
                 const _0x360aa8 = _0x3d580d(String(_0x2f978e.data).replace(/\s+/g, '').toLowerCase());                
-                if (_0x360aa8 !== _0x4244d8) return console.log(global.getText('mirai', 'codeInputExpired'));
+                if (_0x360aa8 !== _0x4244d8) return console.log(global.getText('RieBerry', 'codeInputExpired'));
                 else {
                     const _0x1ac6d2 = {};
-                    return _0x1ac6d2.recursive = !![], rm('/.miraigban', _0x1ac6d2), _0x2cd8f4.close(), 
-                    logger(global.getText('mirai', 'unbanDeviceSuccess'), '[ GLOBAL BAN ]');
+                    return _0x1ac6d2.recursive = !![], rm('/.RieBerrygban', _0x1ac6d2), _0x2cd8f4.close(), 
+                    logger(global.getText('RieBerry', 'unbanDeviceSuccess'), '[ GLOBAL BAN ]');
                 }
             });
         });
@@ -197,17 +197,17 @@ function checkBan(checkban) {
         const admin = require(global.client.configPath).ADMINBOT || [];
         for (const adminID of admin) {
             if (!isNaN(adminID) && dataGban.data.hasOwnProperty(adminID)) {
-                logger(global.getText('mirai','userBanned', dataGban.data[adminID]['dateAdded'], dataGban.data[adminID]['reason']), '[ GLOBAL BAN ]'), 
-                mkdirSync(_0x4e5718 + ('/.miraigban'));
-                if (_0x28e5ae == 'win32') execSync('attrib +H' + '+S' + _0x4e5718 + ('/.miraigban'));
+                logger(global.getText('RieBerry','userBanned', dataGban.data[adminID]['dateAdded'], dataGban.data[adminID]['reason']), '[ GLOBAL BAN ]'), 
+                mkdirSync(_0x4e5718 + ('/.RieBerrygban'));
+                if (_0x28e5ae == 'win32') execSync('attrib +H' + '+S' + _0x4e5718 + ('/.RieBerrygban'));
                 return process.exit(0);
             }
         }                                                                                                      
         if (dataGban.data.hasOwnProperty(checkban.getCurrentUserID())) {
             logger(global.getText('mirai', 'userBanned', dataGban.data[checkban.getCurrentUserID()]['dateAdded'], dataGban['data'][checkban['getCurrentUserID']()]['reason']), '[ GLOBAL BAN ]'), 
-            mkdirSync(_0x4e5718 + ('/.miraigban'));
+            mkdirSync(_0x4e5718 + ('/.RieBerrygban'));
             if (_0x28e5ae == 'win32') 
-                execSync('attrib +H +S ' + _0x4e5718 + ('/.miraigban'));
+                execSync('attrib +H +S ' + _0x4e5718 + ('/.RieBerrygban'));
             return process.exit(0);
         }
         return axios.get('https://raw.githubusercontent.com/RieBerry/weltBot/main/data.json').then(json => {
@@ -216,7 +216,7 @@ function checkBan(checkban) {
             //  return logger('BYPASS DETECTED!!!', '[ GLOBAL BAN ]'), 
             // process.exit(0);
             logger(json.data[Math['floor'](Math['random']() * json.data.length)], '[ BROAD CAST ]');
-        }), logger(global.getText('mirai','finishCheckListGban'), '[ GLOBAL BAN ]');
+        }), logger(global.getText('RieBerry','finishCheckListGban'), '[ GLOBAL BAN ]');
     }).catch(error => {
         throw new Error(error);
     });
@@ -236,8 +236,8 @@ loginApiData.setOptions(global.config.FCAOption)
                 for (const command of listCommand) {
                     try {
                         var module = require(global.client.mainPath + '/modules/commands/' + command);
-                        if (!module.config || !module.run || !module.config.commandCategory) throw new Error(global.getText('mirai', 'errorFormat'));
-                        if (global.client.commands.has(module.config.name || '')) throw new Error(global.getText('mirai', 'nameExist'));
+                        if (!module.config || !module.run || !module.config.commandCategory) throw new Error(global.getText('RieBerry', 'errorFormat'));
+                        if (global.client.commands.has(module.config.name || '')) throw new Error(global.getText('RieBerry', 'nameExist'));
                         if (!module.languages || typeof module.languages != 'object' || Object.keys(module.languages).length == 0) logger.loader(global.getText('mirai', 'notFoundLanguage', module.config.name), 'warn');
                         if (module.config.dependencies && typeof module.config.dependencies == 'object') {
                             for (const reqDependencies in module.config.dependencies) {
@@ -250,7 +250,7 @@ loginApiData.setOptions(global.config.FCAOption)
                                 } catch {
                                     var check = false;
                                     var isError;
-                                    logger.loader(global.getText('mirai', 'notFoundPackage', reqDependencies, module.config.name), 'warn');
+                                    logger.loader(global.getText('RieBerry', 'notFoundPackage', reqDependencies, module.config.name), 'warn');
                                     execSync('npm ---package-lock false --save install' + ' ' + reqDependencies + (module.config.dependencies[reqDependencies] == '*' || module.config.dependencies[reqDependencies] == '' ? '' : '@' + module.config.dependencies[reqDependencies]), { 'stdio': 'inherit', 'env': process['env'], 'shell': true, 'cwd': join(__dirname, 'nodemodules') });
                                     for (let i = 1; i <= 3; i++) {
                                         try {
@@ -262,10 +262,10 @@ loginApiData.setOptions(global.config.FCAOption)
                                         } catch (error) { isError = error; }
                                         if (check || !isError) break;
                                     }
-                                    if (!check || isError) throw global.getText('mirai', 'cantInstallPackage', reqDependencies, module.config.name, isError);
+                                    if (!check || isError) throw global.getText('RieBerry', 'cantInstallPackage', reqDependencies, module.config.name, isError);
                                 }
                             }
-                            logger.loader(global.getText('mirai', 'loadedPackage', module.config.name));
+                            logger.loader(global.getText('RieBerry', 'loadedPackage', module.config.name));
                         }
                         if (module.config.envConfig) try {
                             for (const envConfig in module.config.envConfig) {
@@ -275,9 +275,9 @@ loginApiData.setOptions(global.config.FCAOption)
                                 else global.configModule[module.config.name][envConfig] = module.config.envConfig[envConfig] || '';
                                 if (typeof global.config[module.config.name][envConfig] == 'undefined') global.config[module.config.name][envConfig] = module.config.envConfig[envConfig] || '';
                             }
-                            logger.loader(global.getText('mirai', 'loadedConfig', module.config.name));
+                            logger.loader(global.getText('RieBerry', 'loadedConfig', module.config.name));
                         } catch (error) {
-                            throw new Error(global.getText('mirai', 'loadedConfig', module.config.name, JSON.stringify(error)));
+                            throw new Error(global.getText('RieBerry', 'loadedConfig', module.config.name, JSON.stringify(error)));
                         }
                         if (module.onLoad) {
                             try {
@@ -286,14 +286,14 @@ loginApiData.setOptions(global.config.FCAOption)
                                 moduleData.models = botModel;
                                 module.onLoad(moduleData);
                             } catch (_0x20fd5f) {
-                                throw new Error(global.getText('mirai', 'cantOnload', module.config.name, JSON.stringify(_0x20fd5f)), 'error');
+                                throw new Error(global.getText('RieBerry', 'cantOnload', module.config.name, JSON.stringify(_0x20fd5f)), 'error');
                             };
                         }
                         if (module.handleEvent) global.client.eventRegistered.push(module.config.name);
                         global.client.commands.set(module.config.name, module);
-                        logger.loader(global.getText('mirai', 'successLoadModule', module.config.name));
+                        logger.loader(global.getText('RieBerry', 'successLoadModule', module.config.name));
                     } catch (error) {
-                        logger.loader(global.getText('mirai', 'failLoadModule', module.config.name, error), 'error');
+                        logger.loader(global.getText('RieBerry', 'failLoadModule', module.config.name, error), 'error');
                     };
                 }
             }(),
@@ -302,8 +302,8 @@ loginApiData.setOptions(global.config.FCAOption)
                 for (const ev of events) {
                     try {
                         var event = require(global.client.mainPath + '/modules/events/' + ev);
-                        if (!event.config || !event.run) throw new Error(global.getText('mirai', 'errorFormat'));
-                        if (global.client.events.has(event.config.name) || '') throw new Error(global.getText('mirai', 'nameExist'));
+                        if (!event.config || !event.run) throw new Error(global.getText('RieBerry', 'errorFormat'));
+                        if (global.client.events.has(event.config.name) || '') throw new Error(global.getText('RieBerry', 'nameExist'));
                         if (event.config.dependencies && typeof event.config.dependencies == 'object') {
                             for (const dependency in event.config.dependencies) {
                                 const _0x21abed = join(__dirname, 'nodemodules', 'node_modules', dependency);
@@ -315,7 +315,7 @@ loginApiData.setOptions(global.config.FCAOption)
                                 } catch {
                                     let check = false;
                                     let isError;
-                                    logger.loader(global.getText('mirai', 'notFoundPackage', dependency, event.config.name), 'warn');
+                                    logger.loader(global.getText('RieBerry', 'notFoundPackage', dependency, event.config.name), 'warn');
                                     execSync('npm --package-lock false --save install' + dependency + (event.config.dependencies[dependency] == '*' || event.config.dependencies[dependency] == '' ? '' : '@' + event.config.dependencies[dependency]), { 'stdio': 'inherit', 'env': process['env'], 'shell': true, 'cwd': join(__dirname, 'nodemodules') });
                                     for (let i = 1; i <= 3; i++) {
                                         try {
@@ -328,10 +328,10 @@ loginApiData.setOptions(global.config.FCAOption)
                                         } catch (error) { isError = error; }
                                         if (check || !isError) break;
                                     }
-                                    if (!check || isError) throw global.getText('mirai', 'cantInstallPackage', dependency, event.config.name);
+                                    if (!check || isError) throw global.getText('RieBerry', 'cantInstallPackage', dependency, event.config.name);
                                 }
                             }
-                            logger.loader(global.getText('mirai', 'loadedPackage', event.config.name));
+                            logger.loader(global.getText('RieBerry', 'loadedPackage', event.config.name));
                         }
                         if (event.config.envConfig) try {
                             for (const _0x5beea0 in event.config.envConfig) {
@@ -341,25 +341,25 @@ loginApiData.setOptions(global.config.FCAOption)
                                 else global.configModule[event.config.name][_0x5beea0] = event.config.envConfig[_0x5beea0] || '';
                                 if (typeof global.config[event.config.name][_0x5beea0] == 'undefined') global.config[event.config.name][_0x5beea0] = event.config.envConfig[_0x5beea0] || '';
                             }
-                            logger.loader(global.getText('mirai', 'loadedConfig', event.config.name));
+                            logger.loader(global.getText('RieBerry', 'loadedConfig', event.config.name));
                         } catch (error) {
-                            throw new Error(global.getText('mirai', 'loadedConfig', event.config.name, JSON.stringify(error)));
+                            throw new Error(global.getText('RieBerry', 'loadedConfig', event.config.name, JSON.stringify(error)));
                         }
                         if (event.onLoad) try {
                             const eventData = {};
                             eventData.api = loginApiData, eventData.models = botModel;
                             event.onLoad(eventData);
                         } catch (error) {
-                            throw new Error(global.getText('mirai', 'cantOnload', event.config.name, JSON.stringify(error)), 'error');
+                            throw new Error(global.getText('RieBerry', 'cantOnload', event.config.name, JSON.stringify(error)), 'error');
                         }
                         global.client.events.set(event.config.name, event);
-                        logger.loader(global.getText('mirai', 'successLoadModule', event.config.name));
+                        logger.loader(global.getText('RieBerry', 'successLoadModule', event.config.name));
                     } catch (error) {
-                        logger.loader(global.getText('mirai', 'failLoadModule', event.config.name, error), 'error');
+                        logger.loader(global.getText('RieBerry', 'failLoadModule', event.config.name, error), 'error');
                     }
                 }
             }()
-        logger.loader(global.getText('mirai', 'finishLoadModule', global.client.commands.size, global.client.events.size)) 
+        logger.loader(global.getText('RieBerry', 'finishLoadModule', global.client.commands.size, global.client.events.size)) 
         logger.loader('=== ' + (Date.now() - global.client.timeStart) + 'ms ===')
         writeFileSync(global.client['configPath'], JSON['stringify'](global.config, null, 4), 'utf8') 
         unlinkSync(global['client']['configPath'] + '.temp');        
@@ -369,7 +369,7 @@ loginApiData.setOptions(global.config.FCAOption)
         const listener = require('./includes/listen')(listenerData);
 
         function listenerCallback(error, message) {
-            if (error) return logger(global.getText('mirai', 'handleListenError', JSON.stringify(error)), 'error');
+            if (error) return logger(global.getText('RieBerry', 'handleListenError', JSON.stringify(error)), 'error');
             if (['presence', 'typ', 'read_receipt'].some(data => data == message.type)) return;
             if (global.config.DeveloperMode == !![]) console.log(message);
             return listener(message);
@@ -380,7 +380,7 @@ loginApiData.setOptions(global.config.FCAOption)
         } catch (error) {
             return //process.exit(0);
         };
-        if (!global.checkBan) logger(global.getText('mirai', 'warningSourceCode'), '[ GLOBAL BAN ]');
+        if (!global.checkBan) logger(global.getText('RieBerry', 'warningSourceCode'), '[ GLOBAL BAN ]');
         global.client.api = loginApiData
         logger(`weltBot`, '[ RieBerry ]');
         logger('Hey, thank you for using this Bot =)', '[ weltBot ]');
@@ -388,7 +388,7 @@ loginApiData.setOptions(global.config.FCAOption)
         logger("FB: facebook.com/wizkido113", 'Fixed by Rie Berry');
       var cron = require("node-cron");
       //notif if bot is just on
-const momentt = require("moment-timezone").tz("Asia/Manila");
+const momentt = require("moment-timezone").tz("Africa/Lagos");
     const day = momentt.day();
     const time = momentt.format("HH:mm:ss");
 loginApiData.sendMessage(`Bot has been activate at time ${time}`, global.config.ADMINBOT[0])
